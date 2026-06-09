@@ -1,0 +1,72 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Eaii's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+.nav-border {
+    border-right-color: #FE9B2780;
+    border-color: #FE9B2780
+}
+
+.nav-border-left {
+    border-left-color: #FE9B2780;
+    border-color: #FE9B2780;
+}
+
+.border-primary{
+    border: dot-dash;
+    border-color: rgba(103, 154, 190, 0.42);
+}
+
+.text-required {
+    color: #FE9B27;
+}
+
+.logo-prim{
+    color: #191B5C;
+}
+
+
+
+.text-red {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}
+
+.btn-anchor {
+    cursor: pointer;
+}
+
+tr.spaceUnder > td {
+    padding-bottom: 1em;
+}
+
+text-logo-color {
+    color: #FE9B2780;
+}
+
+.eaii-table .container {
+    padding: 50px 20px;
+    width: 100%;
+    //max-width: 1440px;
+    margin: 0 auto;
+}
+
+.eaii-table .table {
+    width: fit-content;
+}
+
+.eaii-table .table {
+    mat-cell:nth-child(1),
+    mat-header-cell:nth-child(1) {
+        flex: 0 0 30%;
+    }
+
+    mat-cell:nth-child(5),
+    mat-header-cell:nth-child(5) {
+        flex: 0 0 10%;
+    }
+}
+

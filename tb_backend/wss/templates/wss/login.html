@@ -1,0 +1,28 @@
+{% extends "wss/base.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+       <div class="col-md-6 log-home">
+          <img src="{% static 'images/login.jpg' %}" alt="">
+       </div>
+       <div class="col-md-6 imgcontainer">
+          <div class="circle-logo">
+             <img src="{% static '/images/logo.png' %}" alt="">
+          </div>
+          <form action="dashboard" method="post">
+            {% csrf_token %}
+             <div class="L-container">
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <div class="remember">
+                   <input type="checkbox" checked="checked"> Remember me
+                </div>
+                <button type="submit">Login</button> 
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>
+{% endblock %}

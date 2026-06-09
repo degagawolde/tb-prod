@@ -1,0 +1,200 @@
+<div class="flex flex-col w-full max-w-screen-xl mx-auto mt-2 p-6 md:p-8">
+
+    <!-- Title  -->
+    <div class="mx-auto lg:max-w-[80%] sm:w-full">
+        <div class="flex justify-between">
+
+            <div class="text-3xl  text-primary font-semibold mb-4">Diabetes Type and Complication Prediction</div>
+            <div class=" mb-4">
+                <div class="w-full ">
+                    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+
+                        <div class="grid-cols-1 lg:col-span-3">
+                            <div
+                                class="mx-auto flex h-[60px] w-[60px] items-center justify-center rounded-full bg-blue-100 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.822 18.096c-3.439-.794-6.641-1.49-5.09-4.418 4.719-8.912 1.251-13.678-3.732-13.678-5.082 0-8.465 4.949-3.732 13.678 1.598 2.945-1.725 3.641-5.09 4.418-2.979.688-3.178 2.143-3.178 4.663l.005 1.241h1.995c0-3.134-.125-3.55 1.838-4.003 2.851-.657 5.543-1.278 6.525-3.456.359-.795.592-2.103-.338-3.815-2.058-3.799-2.578-7.089-1.423-9.026 1.354-2.275 5.426-2.264 6.767-.034 1.15 1.911.639 5.219-1.403 9.076-.91 1.719-.671 3.023-.31 3.814.99 2.167 3.707 2.794 6.584 3.458 1.879.436 1.76.882 1.76 3.986h1.995l.005-1.241c0-2.52-.199-3.975-3.178-4.663z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col-span-1 lg:col-span-9">
+                            <div *ngIf="patientService.currentPatient" class="text-center lg:text-left">
+                                <p class="mt-2 font-bold text-zinc-700">{{patientService.fullName()}}</p>
+                                <h2 class=" font-medium text-muted text-zinc-700">{{patientService.currentPatient.patientId}}</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form [formGroup]="typePredictionForm" (ngSubmit)="onDiagnosis()"
+            class="flex  flex-col p-12 pb-4 mt-0 bg-card rounded-2xl shadow  border-l nav-border-left">
+            <div class="grid sm:grid-cols-3 gap-16">
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1" class="text-primary mb-1">Hypertension History</mat-label>
+                    <mat-select  formControlName="hptn_hx">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Neurological Pain</mat-label>
+                    <mat-select  formControlName="neurologicPain">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Diabetic Family History</mat-label>
+                    <mat-select  formControlName="diabeticFamilyHistory">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-16">
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Impaired Glucose Tolerance History</mat-label>
+                    <mat-select  formControlName="impairedGlucose">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Disautonomia</mat-label>
+                    <mat-select  formControlName="disautonomia">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">PAD</mat-label>
+                    <mat-select  formControlName="pad">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+            </div>
+            <div class="grid sm:grid-cols-3 gap-16">
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Auto Immune Disease</mat-label>
+                    <mat-select >
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Foot Deformity</mat-label>
+                    <mat-select  formControlName="footDeformity">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Systolic Blood pressure</mat-label>
+                    <input matInput placeholder="Enter SBP" formControlName="sbp">
+                </mat-form-field>
+
+            </div>
+            <div class="grid sm:grid-cols-3 gap-16">
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">TIA/Stroke</mat-label>
+                    <mat-select  formControlName="tia_or_stroke">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Decrease Vision</mat-label>
+                    <mat-select  formControlName="decreasedVision">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Physical Activity</mat-label>
+                    <mat-select  formControlName="physicalActivity">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+
+            </div>
+            <div class="grid sm:grid-cols-3 gap-16">
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Monofilament Test</mat-label>
+                    <mat-select  formControlName="monofilamentTest">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Floaters</mat-label>
+                    <mat-select  formControlName="floaters">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Height (cm)</mat-label>
+                    <input matInput placeholder="Enter height" formControlName="height">
+                </mat-form-field>
+
+
+            </div>
+            <div class="grid sm:grid-cols-3 gap-16">
+
+                <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Weight (kg)</mat-label>
+                    <input matInput placeholder="Enter weight" formControlName="weight">
+                </mat-form-field>
+
+               <!-- <mat-form-field class="flex-auto gt-xs:pl-3">
+                    <mat-label class="text-primary mb-1">Age</mat-label>
+                    <input matInput placeholder="Enter Age" >
+                </mat-form-field> -->
+
+            </div>
+
+            <div class=" flex justify-center">
+                <!-- Submit button -->
+                <button [color]="'primary'" class="fuse-mat-button-small mt-6 pl-16 pr-16" mat-raised-button
+                        type="submit">
+                    <span>
+                        Diagnosis
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

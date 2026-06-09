@@ -1,0 +1,83 @@
+<div class="relative flex flex-col w-full h-full">
+    <!-- Content -->
+    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-4 ">
+        <ng-container>
+            <div
+                class="flex flex-col items-center sm:items-start mt-2 sm:mt-0  space-y-1 text-center sm:text-left">
+
+                <!-- Title -->
+                <ng-container>
+                    <div
+                        class="text-xl mb-4 leading-6 font-medium border-b-2 w-full  justify-center text-center items-center  primary-border">
+                        Prediction Result
+                    </div>
+                </ng-container>
+
+
+                <!-- Message -->
+                <ng-container>
+                    <div class="w-full  justify-center text-center items-center">
+
+                        <table class="mt-4 pred-table">
+                            <tr class=" spaceUnder">
+                                <th class="text-left pt-4 pb-2"> ID:</th>
+                                <td class="text-left text-primary pt-4 pl-4"> {{patientService.currentPatient.patientId}}</td>
+                            </tr>
+                            <tr class=" spaceUnder">
+                                <th class="text-left pt-4 pb-2 mr-8"> Name:</th>
+                                <td class="text-left text-primary pt-4 pl-4">{{patientService.fullName()}}</td>
+                            </tr>
+
+                            <tr>
+                            <tr class="spaceUnder">
+                                <th class="text-left pt-4 pb-2"> Type:</th>
+                                <td class="text-left text-primary pt-4 pl-4">{{predictionResult.diabetic}}</td>
+                            </tr>
+
+                            <tr class=" spaceUnder">
+                                <th class="text-left pt-2 pb-2 ">Complication:</th>
+                                <td class="text-left text-primary align-bottom pt-4 pl-4">
+                                    <p>{{predictionResult.neuropathy}}</p>
+                                    <p>{{predictionResult.opthalmopathy}}</p>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </ng-container>
+
+
+                <div class="w-full">
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <button (click)="onDecline()" [color]="'warn'"
+                                    class="fuse-mat-button-small mt-6 pl-10 pr-10" mat-flat-button
+                                    type="submit">
+                    <span>
+                        Disagree
+                    </span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button (click)="onDone()" [color]="'primary'"
+                                    class="fuse-mat-button-small mt-6 pl-10 pr-10" mat-flat-button
+                                    type="submit">
+                    <span>
+                       Agree
+                    </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+
+<!-- [matDialogClose]="'confirmed'" -->
+

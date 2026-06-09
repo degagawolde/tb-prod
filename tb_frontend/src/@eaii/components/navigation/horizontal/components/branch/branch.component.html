@@ -1,0 +1,121 @@
+<ng-container *ngIf="!child">
+    <div
+        [ngClass]="{'eaii-horizontal-navigation-menu-active': trigger.menuOpen,
+                 'eaii-horizontal-navigation-menu-active-forced': item.active}"
+        [matMenuTriggerFor]="matMenu"
+        (onMenuOpen)="triggerChangeDetection()"
+        (onMenuClose)="triggerChangeDetection()"
+        #trigger="matMenuTrigger">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+    </div>
+</ng-container>
+
+<mat-menu
+    class="eaii-horizontal-navigation-menu-panel"
+    [overlapTrigger]="false"
+    #matMenu="matMenu">
+
+    <ng-container *ngFor="let item of item.children; trackBy: trackByFn">
+
+        <!-- Skip the hidden items -->
+        <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+
+            <!-- Basic -->
+            <ng-container *ngIf="item.type === 'basic'">
+                <div
+                    class="eaii-horizontal-navigation-menu-item"
+                    [disabled]="item.disabled"
+                    mat-menu-item>
+                    <eaii-horizontal-navigation-basic-item
+                        [item]="item"
+                        [name]="name"></eaii-horizontal-navigation-basic-item>
+                </div>
+            </ng-container>
+
+            <!-- Branch: aside, collapsable, group -->
+            <ng-container *ngIf="item.type === 'aside' || item.type === 'collapsable' || item.type === 'group'">
+                <div
+                    class="eaii-horizontal-navigation-menu-item"
+                    [disabled]="item.disabled"
+                    [matMenuTriggerFor]="branch.matMenu"
+                    mat-menu-item>
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+                    <eaii-horizontal-navigation-branch-item
+                        [child]="true"
+                        [item]="item"
+                        [name]="name"
+                        #branch></eaii-horizontal-navigation-branch-item>
+                </div>
+            </ng-container>
+
+            <!-- Divider -->
+            <ng-container *ngIf="item.type === 'divider'">
+                <div
+                    class="eaii-horizontal-navigation-menu-item"
+                    mat-menu-item>
+                    <eaii-horizontal-navigation-divider-item
+                        [item]="item"
+                        [name]="name"></eaii-horizontal-navigation-divider-item>
+                </div>
+            </ng-container>
+
+        </ng-container>
+
+    </ng-container>
+
+</mat-menu>
+
+<!-- Item template -->
+<ng-template
+    let-item
+    #itemTemplate>
+
+    <div
+        class="eaii-horizontal-navigation-item-wrapper"
+        [class.eaii-horizontal-navigation-item-has-subtitle]="!!item.subtitle"
+        [ngClass]="item.classes?.wrapper">
+
+        <div
+            class="eaii-horizontal-navigation-item"
+            [ngClass]="{'eaii-horizontal-navigation-item-disabled': item.disabled,
+                         'eaii-horizontal-navigation-item-active-forced': item.active}"
+            [matTooltip]="item.tooltip || ''">
+
+            <!-- Icon -->
+            <ng-container *ngIf="item.icon">
+                <mat-icon
+                    class="eaii-horizontal-navigation-item-icon"
+                    [ngClass]="item.classes?.icon"
+                    [svgIcon]="item.icon"></mat-icon>
+            </ng-container>
+
+            <!-- Title & Subtitle -->
+            <div class="eaii-horizontal-navigation-item-title-wrapper">
+                <div class="eaii-horizontal-navigation-item-title">
+                    <span [ngClass]="item.classes?.title">
+                        {{item.title}}
+                    </span>
+                </div>
+                <ng-container *ngIf="item.subtitle">
+                    <div class="eaii-horizontal-navigation-item-subtitle text-hint">
+                        <span [ngClass]="item.classes?.subtitle">
+                            {{item.subtitle}}
+                        </span>
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- Badge -->
+            <ng-container *ngIf="item.badge">
+                <div class="eaii-horizontal-navigation-item-badge">
+                    <div
+                        class="eaii-horizontal-navigation-item-badge-content"
+                        [ngClass]="item.badge.classes">
+                        {{item.badge.title}}
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+</ng-template>

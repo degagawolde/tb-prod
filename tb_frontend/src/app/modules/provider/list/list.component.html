@@ -1,0 +1,144 @@
+<div class="w-full mx-auto mb-3">
+    <!-- Title  -->
+    <div class="mx-auto lg:max-w-[90%] sm:w-full">
+        <div class="text-xl text-primary font-semibold mb-2 mt-2">Patients</div>
+
+        <div class="">
+            <div
+                class="container flex flex-col p-12 pb-4 pt-2 mt-0 bg-card rounded-2xl shadow border-l nav-border-left mat-elevation-z8"
+            >
+                <div class="w-1/2">
+                    <mat-form-field appearance="standard">
+                        <mat-label><i class=""></i>Search</mat-label>
+                        <input
+                            (keyup)="applyFilter($event)"
+                            matInput
+                            placeholder="type here..."
+                        />
+                    </mat-form-field>
+                </div>
+
+                <table
+                    class=""
+                    style="width: 100%"
+                    [dataSource]="dataSource"
+                    mat-table
+                >
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="patientId">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary"
+                            mat-header-cell
+                        >
+                            Patient Id.
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.patientId }}
+                        </td>
+                    </ng-container>
+                    <!-- <mat-text-column name="id"></mat-text-column> -->
+
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="firstName">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary"
+                            mat-header-cell
+                        >
+                            First Name
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.firstName | slice : 0 : 30 }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Body Column -->
+                    <ng-container matColumnDef="lastName">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary"
+                            mat-header-cell
+                        >
+                            Last Name
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.lastName | slice : 0 : 50 }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gender">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary"
+                            mat-header-cell
+                        >
+                            Gender
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.gender }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="age">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary"
+                            mat-header-cell
+                        >
+                            Age
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.age }}
+                        </td>
+                    </ng-container>
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th
+                            *matHeaderCellDef
+                            class="font-bold text-white text-md bg-primary text-right"
+                            mat-header-cell
+                        >
+                            Actions
+                        </th>
+                        <td *matCellDef="let element" mat-cell>
+                            <div
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-end;
+                                "
+                            >
+                                <button
+                                    (click)="onViewDetail(element.patientId)"
+                                    class="text-right px-5 py-2 border-blue-500 border-l border-r border-t border-b text-logo-color rounded-l transition duration-300 hover:bg-primary hover:text-white focus:outline-none"
+                                >
+                                    View Details
+                                </button>
+                                <button
+                                    (click)="onNewVisit(element)"
+                                    class="text-right px-5 py-2 border-blue-500 border-r border-t border-b text-logo-color transition duration-300 hover:bg-primary hover:text-white focus:outline-none"
+                                >
+                                    New Visit
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr
+                        *matHeaderRowDef="displayedColumns; sticky: true"
+                        mat-header-row
+                    ></tr>
+                    <tr
+                        *matRowDef="let row; columns: displayedColumns"
+                        mat-row
+                    ></tr>
+                </table>
+
+                <mat-paginator
+                    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                    showFirstLastButtons
+                ></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

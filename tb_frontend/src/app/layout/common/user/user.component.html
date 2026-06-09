@@ -1,0 +1,28 @@
+<!-- Button -->
+<button
+    [matMenuTriggerFor]="userActions"
+    mat-icon-button>
+    <span class="relative">
+        <!--<img
+            class="w-7 h-7 rounded-full"
+            *ngIf="showAvatar && user.avatar"
+            [src]="user.avatar"> -->
+
+        <mat-icon
+            [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+
+
+    </span>
+</button>
+<span class="text-md  font-medium text-primary">{{user.email}}</span>
+<mat-menu
+    #userActions="matMenu"
+    [xPosition]="'before'">
+    <button
+        (click)="signOut()"
+        mat-menu-item>
+        <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
+        <span>Sign out</span>
+    </button>
+</mat-menu>
+

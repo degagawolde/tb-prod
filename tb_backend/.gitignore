@@ -1,0 +1,6 @@
+.history
+wss/migrations
+mediafiles/images
+mediafiles/masks
+db.sqlite3
+mediafiles/.DS_Store

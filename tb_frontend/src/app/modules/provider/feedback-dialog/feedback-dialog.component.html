@@ -1,0 +1,81 @@
+<div class="relative flex flex-col w-full h-full">
+    <!-- Content -->
+    <div class="flex flex-col sm:flex-row flex-auto items-center p-4">
+        <ng-container>
+            <div
+                class="flex flex-col items-center mt-2 sm:mt-0 space-y-1 text-center"
+            >
+                <!-- Title -->
+                <ng-container>
+                    <div
+                        class="text-xl mb-4 leading-6 font-medium border-b-2 w-full justify-center text-center items-center primary-border"
+                    >
+                        Physician Diagnosis Result
+                    </div>
+                </ng-container>
+
+                <!-- Message -->
+                <ng-container>
+                    <div class="w-full justify-center text-center items-center">
+                        <form
+                            (ngSubmit)="onFeedbackSubmit()"
+                            [formGroup]="feedbackForm"
+                            class="flex flex-col mt-2"
+                        >
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <mat-label class="text-primary mb-1"
+                                    >Select Class
+                                </mat-label>
+                                <mat-select formControlName="disease">
+                                    <mat-option
+                                        *ngFor="let option of options"
+                                        [value]="option.value"
+                                        >{{ option.label }}</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <mat-label class="text-primary mb-1"
+                                    >Feedback</mat-label
+                                >
+                                <textarea
+                                    formControlName="feedback"
+                                    matInput
+                                    placeholder="Type your feedback"
+                                ></textarea>
+                            </mat-form-field>
+
+                            <div class="w-full">
+                                <div class="flex flex-row justify-between">
+                                    <div>
+                                        <button
+                                            (click)="onCancel()"
+                                            [color]="'warn'"
+                                            class="fuse-mat-button-small mt-6 pl-10 pr-10"
+                                            mat-flat-button
+                                            type="button"
+                                        >
+                                            <span> Cancel </span>
+                                        </button>
+                                    </div>
+
+                                    <div>
+                                        <button
+                                            [color]="'primary'"
+                                            class="fuse-mat-button-small mt-6 pl-10 pr-10"
+                                            mat-flat-button
+                                            type="submit"
+                                        >
+                                            <span> Submit </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,298 @@
+<div class="flex flex-col h-auto w-full max-w-screen-md mx-auto p-6 mt-3 pt-0">
+    <mat-stepper orientation="horizontal" [linear]="true" #stepper>
+        <mat-step
+            [stepControl]="registrationForm"
+            label="Patient Profile"
+            errorMessage="Fill required fields correctly."
+        >
+            <form
+                (ngSubmit)="savePatient()"
+                [formGroup]="registrationForm"
+                class="flex flex-col p-12 pb-4 mt-0 pt-0 nav-border-left"
+            >
+                <div class="grid sm:grid-cols-3 gap-16">
+                    <mat-form-field>
+                        <mat-label class="text-primary mb-1"
+                            >ID Number</mat-label
+                        >
+                        <input
+                            formControlName="patientId"
+                            matInput
+                            placeholder="Please enter ID number"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="text-primary mb-1"
+                            >First Name</mat-label
+                        >
+                        <input
+                            formControlName="firstName"
+                            matInput
+                            placeholder="Please enter First Name"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1"
+                            >Last Name</mat-label
+                        >
+                        <input
+                            [placeholder]="'Please Enter Last Name'"
+                            formControlName="lastName"
+                            matInput
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-16">
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1">Gender</mat-label>
+                        <mat-select
+                            [placeholder]="'Gender'"
+                            formControlName="gender"
+                        >
+                            <mat-option value="Male">Male</mat-option>
+                            <mat-option value="Female">Female</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <mat-label class="text-primary mb-1">Age</mat-label>
+                        <input
+                            [placeholder]="'Please enter Age'"
+                            formControlName="age"
+                            matInput
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1">Job</mat-label>
+                        <input
+                            [placeholder]="'Please Enter Job'"
+                            formControlName="job"
+                            matInput
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-16">
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1">Region</mat-label>
+
+                        <mat-select
+                            [placeholder]="'Region'"
+                            formControlName="region"
+                        >
+                            <mat-option
+                                *ngFor="let region of regionList"
+                                value="region.name"
+                                >{{ region.name }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <mat-label class="text-primary mb-1">Zone</mat-label>
+                        <input
+                            [placeholder]="'Please enter Zone'"
+                            formControlName="zone"
+                            matInput
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1">Woreda</mat-label>
+                        <input
+                            [placeholder]="'Please enter Woreda'"
+                            formControlName="woreda"
+                            matInput
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-16">
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-label class="text-primary mb-1">Kebele</mat-label>
+                        <input
+                            [placeholder]="'Please enter Kebele'"
+                            formControlName="kebele"
+                            matInput
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <mat-label class="text-primary mb-1"
+                            >Phone Number</mat-label
+                        >
+                        <input
+                            [placeholder]="'Please enter Phone number'"
+                            formControlName="phonenumber"
+                            matInput
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="flex justify-center">
+                    <button
+                        [color]="'primary'"
+                        class="fuse-mat-button-small mt-4 pl-8 pr-8 mr-4"
+                        mat-raised-button
+                        matStepperNext
+                        type="submit"
+                    >
+                        <span>Next</span>
+                    </button>
+                    <!--
+                <button [color]="'primary'" class="fuse-mat-button-small mt-4 pl-8 pr-8" mat-raised-button matStepperNext>
+                    <span>Next</span>
+                </button> -->
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Upload Chest X-ray">
+            <form
+                [formGroup]="secondFormGroup"
+                class="flex flex-col p-12 mb-0 pt-0 mt-0"
+            >
+                <div>
+                    <!-- <span>{{ progressInfo.fileName }}</span> -->
+                    <mat-toolbar *ngIf="showProgress" class="progress-bar">
+                        <mat-progress-bar
+                            color="primary"
+                            [value]="progressInfos.value"
+                        ></mat-progress-bar>
+                        <span class="progress">{{ progressInfos.value }}%</span>
+                    </mat-toolbar>
+                </div>
+
+                <div class="grid grid-cols-4 sm:grid-cols-3 gap-16 mb-2">
+                    <div class="sm:col-span-2 flex items-center">
+                        <label
+                            class="flex cursor-pointer appearance-none justify-center rounded-md border border-dashed border-gray-300 bg-white px-3 py-3 text-sm transition hover:border-gray-600 focus:border-solid focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
+                            tabindex="0"
+                        >
+                            <span
+                                for="photo-dropbox"
+                                class="flex items-center space-x-2"
+                            >
+                                <svg
+                                    class="h-6 w-6 stroke-gray-400"
+                                    viewBox="0 0 256 256"
+                                >
+                                    <path
+                                        d="M96,208H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="24"
+                                    ></path>
+                                    <path
+                                        d="M80,128a80,80,0,1,1,144,48"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="24"
+                                    ></path>
+                                    <polyline
+                                        points="118.1 161.9 152 128 185.9 161.9"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="24"
+                                    ></polyline>
+                                    <line
+                                        x1="152"
+                                        y1="208"
+                                        x2="152"
+                                        y2="128"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="24"
+                                    ></line>
+                                </svg>
+                                <span class="text-xs font-medium text-gray-600">
+                                    Drop files to Upload, or
+                                    <span class="text-blue-600 underline"
+                                        >browse</span
+                                    >
+                                </span>
+                            </span>
+                            <input
+                                (change)="selectFiles($event)"
+                                id="photo-dropbox"
+                                type="file"
+                                class="sr-only"
+                            />
+                        </label>
+                        <button
+                            (click)="uploadFiles()"
+                            class="block ml-4 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                            Predict
+                        </button>
+
+                        <button
+                            class="block ml-4 px-4 py-2 text-sm font-medium text-white bg-gray-400 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            (click)="openModal()"
+                        >
+                            Feedback
+                        </button>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div
+                        class="card bg-card column rounded-md border border-dashed border-gray-300 hover:border-gray-600 focus:border-solid"
+                    >
+                        <div class="column-content rounded-md">
+                            <img
+                                (click)="onViewImage(previews[0])"
+                                class="h-86 rounded-lg max-w-full"
+                                [src]="previewImg | async"
+                            />
+                            <!--<div class="card-footer py-3 px-3 bg-gray-400">
+                            <strong>Orginal Image</strong>
+                        </div> -->
+                        </div>
+                    </div>
+
+                    <div
+                        class="card bg-card column rounded-md border border-dashed border-red-300 hover:border-red-600 focus:border-solid"
+                    >
+                        <div class="column-content">
+                            <img
+                                (click)="onViewImage(prediction_loc)"
+                                class="h-86 rounded-lg max-w-full"
+                                [src]="prediction_loc$ | async"
+                            />
+                            <div class="card-footer mt-2 py-3 px-3 bg-gray-100">
+                                <strong class="text-red-600">{{
+                                    prediction_class$ | async
+                                }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button
+                        [color]="'primary'"
+                        class="fuse-mat-button-small mt-4 pl-8 pr-8 mr-4"
+                        mat-raised-button
+                        matStepperPrevious
+                    >
+                        <span>Prev</span>
+                    </button>
+
+                    <button
+                        [color]="'primary'"
+                        class="fuse-mat-button-small mt-4 pl-8 pr-8 mr-4"
+                        mat-raised-button
+                        (click)="stepper.reset()"
+                    >
+                        <span>Back to New Case</span>
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-stepper>
+</div>

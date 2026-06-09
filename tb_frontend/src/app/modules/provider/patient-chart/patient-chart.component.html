@@ -1,0 +1,140 @@
+<div class="flex flex-col w-full max-w-screen-xl mx-auto p-6">
+    <!-- Title  -->
+    <div class="mx-auto lg:max-w-[95%] sm:w-full">
+        <div class="bg-card p-1">
+            <div class="card-body">
+                <div
+                    class="grid bg-card grid-cols-3 gap-16 flex items-center mb-2"
+                >
+                    <div
+                        class="grid-cols-1 m-2 lg:col-span-1 flex items-center"
+                    >
+                        <div
+                            class="mx-auto flex h-[60px] w-[60px] items-center justify-center rounded-full bg-blue-100"
+                        >
+                            <svg
+                                height="24"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M20.822 18.096c-3.439-.794-6.641-1.49-5.09-4.418 4.719-8.912 1.251-13.678-3.732-13.678-5.082 0-8.465 4.949-3.732 13.678 1.598 2.945-1.725 3.641-5.09 4.418-2.979.688-3.178 2.143-3.178 4.663l.005 1.241h1.995c0-3.134-.125-3.55 1.838-4.003 2.851-.657 5.543-1.278 6.525-3.456.359-.795.592-2.103-.338-3.815-2.058-3.799-2.578-7.089-1.423-9.026 1.354-2.275 5.426-2.264 6.767-.034 1.15 1.911.639 5.219-1.403 9.076-.91 1.719-.671 3.023-.31 3.814.99 2.167 3.707 2.794 6.584 3.458 1.879.436 1.76.882 1.76 3.986h1.995l.005-1.241c0-2.52-.199-3.975-3.178-4.663z"
+                                />
+                            </svg>
+                        </div>
+                        <div *ngIf="patient" class="ml-4">
+                            <div class="text-center lg:text-left">
+                                <h2 class="mt-2 font-bold text-zinc-700">
+                                    {{ patient.firstName }}
+                                    {{ patient.lastName }}
+                                </h2>
+                                <h2
+                                    class="font-medium text-muted text-zinc-500"
+                                >
+                                    {{ patient.patientId }}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 lg:col-span-2 flex justify-end">
+                        <button
+                            (click)="back()"
+                            class="ml-4 m-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                            Go to List
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card">
+            <table
+                style="width: 100%"
+                [dataSource]="patientDataSource"
+                mat-table
+            >
+                <!-- Id Column -->
+                <ng-container matColumnDef="created">
+                    <th
+                        *matHeaderCellDef
+                        class="font-bold text-white text-md bg-primary"
+                        mat-header-cell
+                    >
+                        Date
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ getDateFormatted(element.created) }}
+                    </td>
+                </ng-container>
+
+                <!-- Body Column -->
+                <!-- <ng-container matColumnDef="msk_url">
+                            <th *matHeaderCellDef class="font-bold text-white text-md bg-primary" mat-header-cell>
+                                Localization
+                            </th>
+                            <td *matCellDef="let element" mat-cell> {{element.msk_url | slice: 0:50}} </td>
+                        </ng-container> -->
+
+                <!-- <mat-text-column name="id"></mat-text-column> -->
+                <ng-container matColumnDef="class_prediction">
+                    <th
+                        *matHeaderCellDef
+                        class="font-bold text-white text-md bg-primary"
+                        mat-header-cell
+                    >
+                        Class
+                    </th>
+
+                    <td *matCellDef="let element" mat-cell>
+                        <button class="btn-primary text-primary">
+                            {{ element.class_prediction }}
+                        </button>
+                    </td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="image_url">
+                    <th
+                        *matHeaderCellDef
+                        class="font-bold text-white text-md bg-primary"
+                        mat-header-cell
+                    >
+                        Images
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        <div class="flex">
+                            <button
+                                class="ml-4 m-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                (click)="showImage(element.image_url)"
+                            >
+                                View CXR
+                            </button>
+                            <button
+                                class="ml-0 m-2 px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                (click)="showImage(element.msk_url)"
+                            >
+                                View mask CXR
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    mat-header-row
+                ></tr>
+                <tr
+                    *matRowDef="let row; columns: displayedColumns"
+                    mat-row
+                ></tr>
+            </table>
+            <mat-paginator
+                [pageSizeOptions]="[5, 10]"
+                showFirstLastButtons
+            ></mat-paginator>
+        </div>
+    </div>
+</div>

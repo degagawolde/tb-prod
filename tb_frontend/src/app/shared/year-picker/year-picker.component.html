@@ -1,0 +1,22 @@
+<mat-form-field class="year-picker">
+    <mat-label class="text-primary">{{ label }}</mat-label>
+    <input style="cursor: pointer;"
+        matInput
+        [matDatepicker]="$any(datepicker)"
+        [max]="_max"
+        [min]="_min"
+        [formControl]="_inputCtrl"
+        (click)="_openDatepickerOnClick($any(datepicker))"
+        readonly
+    />
+
+    <mat-datepicker
+        #datepicker
+        [touchUi]="touchUi"
+        startView="multi-year"
+        (closed)="_closedHandler($event, datepicker)"
+        (yearSelected)="_yearSelectedHandler($event, $any(datepicker))"
+        panelClass="year-picker"
+    >
+    </mat-datepicker>
+</mat-form-field>

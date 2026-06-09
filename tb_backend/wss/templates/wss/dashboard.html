@@ -1,0 +1,73 @@
+{% extends "wss/base.html" %}
+{% load static %}
+
+{% block body %}
+<nav class="bg-light">
+   <div class="logo-image">
+      <img src="{% static '/images/logo.png' %}" alt="">
+   </div>
+    <div class="menu-items ">
+       <ul class="nav-links ">
+          <li><a href="#">
+             <i class="uil uil-estate"></i>
+             <span class="link-name text-dark">Dahsboard</span>
+             </a>
+          </li>
+          <li><a href="#">
+            <i class="uil uil-user-md"></i>
+             <span class="link-name text-dark">New case</span>
+             </a>
+          </li>
+          <li><a href="#">
+            <i class="uil uil-users-alt"></i>
+             <span class="link-name text-dark">Patient Record</span>
+             </a>
+          </li>
+       </ul>
+    </div>
+ </nav>
+ <section class="dashboard">
+    <div class="top">
+       <i class="uil uil-bars sidebar-toggle"></i>
+       <div class="search-box">
+          <i class="uil uil-search"></i>
+          <input type="text" placeholder="Search here...">
+       </div>
+       <img src="{% static '/images/profile.jpg' %}" alt="">
+    </div>
+ </section>
+<script>
+    const body = document.querySelector("body"),
+      modeToggle = body.querySelector(".mode-toggle");
+      sidebar = body.querySelector("nav");
+      sidebarToggle = body.querySelector(".sidebar-toggle");
+
+let getMode = localStorage.getItem("mode");
+if(getMode && getMode ==="dark"){
+    body.classList.toggle("dark");
+}
+
+let getStatus = localStorage.getItem("status");
+if(getStatus && getStatus ==="close"){
+    sidebar.classList.toggle("close");
+}
+
+// modeToggle.addEventListener("click", () =>{
+//     body.classList.toggle("dark");
+//     if(body.classList.contains("dark")){
+//         localStorage.setItem("mode", "dark");
+//     }else{
+//         localStorage.setItem("mode", "light");
+//     }
+// });
+
+sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+    if(sidebar.classList.contains("close")){
+        localStorage.setItem("status", "close");
+    }else{
+        localStorage.setItem("status", "open");
+    }
+})
+</script>
+{% endblock %}

@@ -1,0 +1,251 @@
+<div *ngIf="stat" class="mx-auto sm:max-w-[90%] mt-6 mb-6">
+    <div class="grid sm:grid-cols-1 md:grid-cols-4 gap-6 w-full min-w-0 mt-4">
+        <!-- total diagnosed -->
+        <div
+            class="flex flex-col flex-auto p-6 ps-12 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div class="flex items-start justify-between">
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                ></div>
+            </div>
+
+            <div class="flex items-start justify-start gap-6 mt-2">
+                <div>
+                    <mat-icon
+                        [svgIcon]="'feather:users'"
+                        class="icon-size-6 text-primary"
+                    ></mat-icon>
+                </div>
+                <div>
+                    <div
+                        class="text-7xl sm:text-2xl font-bold tracking-tight leading-none"
+                    >
+                        {{ stat.total | number }}
+                    </div>
+                    <div
+                        class="text-lg font-medium text-primary dark:text-blue-500"
+                    >
+                        Diagnosed
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- total normal -->
+        <div
+            class="flex flex-col flex-auto p-6 pl-12 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div class="flex items-start justify-between">
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                ></div>
+            </div>
+
+            <div class="flex items-start justify-start gap-6 mt-2">
+                <div>
+                    <mat-icon
+                        [svgIcon]="'feather:check-circle'"
+                        class="icon-size-6 text-success"
+                    ></mat-icon>
+                </div>
+                <div>
+                    <div
+                        class="text-7xl sm:text-2xl font-bold tracking-tight leading-none"
+                    >
+                        {{ stat.health | number }}
+                    </div>
+                    <div
+                        class="text-lg font-medium text-primary dark:text-blue-500"
+                    >
+                        healthy
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- total type 1 -->
+        <div
+            class="flex flex-col flex-auto p-6 pl-12 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div class="flex items-start justify-between">
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                ></div>
+            </div>
+
+            <div class="flex items-start justify-start gap-6 mt-2">
+                <div>
+                    <mat-icon
+                        [svgIcon]="'feather:users'"
+                        class="icon-size-6 text-required"
+                    ></mat-icon>
+                </div>
+                <div>
+                    <div
+                        class="text-7xl sm:text-2xl font-bold tracking-tight leading-none"
+                    >
+                        {{ stat.tb | number }}
+                    </div>
+                    <div
+                        class="text-lg font-medium text-primary dark:text-blue-500"
+                    >
+                        tuberculosis
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- total type 2 -->
+        <div
+            class="flex flex-col flex-auto p-6 pl-12 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div class="flex items-start justify-between">
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                ></div>
+            </div>
+
+            <div class="flex items-start justify-start gap-6 mt-2">
+                <div>
+                    <mat-icon
+                        [svgIcon]="'feather:users'"
+                        class="icon-size-6 text-red"
+                    ></mat-icon>
+                </div>
+                <div>
+                    <div
+                        class="text-7xl sm:text-2xl font-bold tracking-tight leading-none"
+                    >
+                        {{ stat.sick | number }}
+                    </div>
+                    <div
+                        class="text-lg font-medium text-primary dark:text-blue-500"
+                    >
+                        non-tb-sick
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="grid grid-cols-1 lg:grid-cols-3 grid-flow-row gap-6 w-full mt-8 sm:mt-4"
+    >
+        <div
+            class="col-span-2 flex flex-col mt-8 flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div
+                class="flex flex-col sm:flex-row items-start justify-between border-b"
+            >
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                >
+                    Patients By Gender
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row items-end justify-between gap-3 mt-1"
+                >
+                    <div class="">
+                        <mat-form-field appearance="">
+                            <mat-label class="text-primary">Type</mat-label>
+                            <mat-select
+                                [(ngModel)]="typeSelect"
+                                [(value)]="typeSelect"
+                                (ngModelChange)="fetchAgeGenderStat()"
+                            >
+                                <mat-option [value]="'tuberculosis'"
+                                    >tuberculosis</mat-option
+                                >
+                                <mat-option [value]="'non-tb-sick'"
+                                    >non-tb-sick</mat-option
+                                >
+                                <mat-option [value]="'healthy'"
+                                    >healthy</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="item-end">
+                        <div>
+                            <app-custom-date-picker
+                                [(ngModel)]="currentYear"
+                                label="Year"
+                                mode="YEAR"
+                                (ngModelChange)="fetchAgeGenderStat()"
+                            ></app-custom-date-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="grid grid-cols-3 lg:grid-cols-3 grid-flow-row gap-1 w-full mt-8 sm:mt-4"
+            >
+                <!--bar chart -->
+                <div class="flex flex-col flex-auto col-span-2">
+                    <div id="bar- w-full " *ngIf="chartOptions">
+                        <apx-chart
+                            [chart]="chartOptions.chart"
+                            [colors]="chartOptions.colors"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [fill]="chartOptions.fill"
+                            [legend]="chartOptions.legend"
+                            [plotOptions]="chartOptions.plotOptions"
+                            [series]="chartOptions.series"
+                            [stroke]="chartOptions.stroke"
+                            [tooltip]="chartOptions.tooltip"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                        ></apx-chart>
+                    </div>
+                </div>
+
+                <!-- pie chart -->
+                <div class="flex flex-col mt-24">
+                    <div
+                        id="donut-chart w-full items-center "
+                        *ngIf="donutChartOptions"
+                    >
+                        <apx-chart
+                            [chart]="donutChartOptions.chart"
+                            [colors]="chartOptions.colors"
+                            [labels]="donutChartOptions.labels"
+                            [legend]="donutChartOptions.legend"
+                            [responsive]="donutChartOptions.responsive"
+                            [series]="donutChartOptions.series"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="mt-8 flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden border border-blue-300"
+        >
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between border-b"
+            >
+                <div
+                    class="text-lg font-medium tracking-tight leading-6 truncate"
+                >
+                    Summary
+                </div>
+                <div class="mt-3 sm:mt-0 sm:ml-2"></div>
+            </div>
+            <div class="flex flex-col flex-auto mt-8">
+                <!-- pie chart -->
+                <div class="flex flex-col mt-16">
+                    <div id="pie-chart w-full items-center ">
+                        <apx-chart
+                            [chart]="pieChartOptions.chart"
+                            [colors]="chartOptions.colors"
+                            [labels]="pieChartOptions.labels"
+                            [legend]="pieChartOptions.legend"
+                            [responsive]="pieChartOptions.responsive"
+                            [series]="pieChartOptions.series"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

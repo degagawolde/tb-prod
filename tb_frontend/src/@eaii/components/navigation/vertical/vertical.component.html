@@ -1,0 +1,48 @@
+<div class="eaii-vertical-navigation-wrapper">
+
+    <!-- Header -->
+    <div class="eaii-vertical-navigation-header">
+        <ng-content select="[eaiiVerticalNavigationHeader]"></ng-content>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="eaii-vertical-navigation-content"
+        eaiiScrollbar
+        [eaiiScrollbarOptions]="{wheelPropagation: inner, suppressScrollX: true}"
+        #navigationContent>
+
+        <!-- Content header -->
+        <div class="eaii-vertical-navigation-content-header">
+            <ng-content select="[eaiiVerticalNavigationContentHeader]"></ng-content>
+        </div>
+
+        <!-- Items -->
+        <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
+
+            <!-- Skip the hidden items -->
+            <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+
+                <!-- Basic -->
+                <ng-container *ngIf="item.type === 'basic'">
+                    <eaii-vertical-navigation-basic-item
+                        [item]="item"
+                        [name]="name"></eaii-vertical-navigation-basic-item>
+                </ng-container>
+
+            </ng-container>
+        </ng-container>
+
+        <!-- Content footer -->
+        <div class="eaii-vertical-navigation-content-footer">
+            <ng-content select="[eaiiVerticalNavigationContentFooter]"></ng-content>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="eaii-vertical-navigation-footer">
+        <ng-content select="[eaiiVerticalNavigationFooter]"></ng-content>
+    </div>
+
+</div>

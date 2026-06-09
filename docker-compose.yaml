@@ -1,0 +1,24 @@
+services:
+  stroke-web:
+    image: tb-web-image:v1.0
+    container_name: tb-web
+    restart: always
+    build: 
+      context: ./tb_frontend
+    ports:
+      - 5500:80
+    networks:
+      - tb-network
+
+  stroke-api:
+    image: tb-api-image:v1.0
+    container_name: tb-api
+    restart: always
+    build: ./tb_backend
+    ports:
+      - 9000:8080
+    networks:
+      - tb-network  
+
+networks:
+  tb-network:

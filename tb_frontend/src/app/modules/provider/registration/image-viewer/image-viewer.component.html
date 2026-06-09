@@ -1,0 +1,25 @@
+<div *ngIf="single" class="image-container">
+    <img
+        [src]="imageUrl"
+        [ngStyle]="{ transform: 'scale(' + scale + ')' }"
+        (wheel)="onZoom($event)"
+    />
+</div>
+
+<div *ngIf="!single" class="grid-cols-2 m-2 flex items-center">
+    <div class="image-container">
+        <img
+            [src]="imageUrl"
+            [ngStyle]="{ transform: 'scale(' + scale + ')' }"
+            (wheel)="onZoom($event, 1)"
+        />
+    </div>
+
+    <div class="image-container">
+        <img
+            [src]="maskUrl"
+            [ngStyle]="{ transform: 'scale(' + scale + ')' }"
+            (wheel)="onZoom($event, 2)"
+        />
+    </div>
+</div>

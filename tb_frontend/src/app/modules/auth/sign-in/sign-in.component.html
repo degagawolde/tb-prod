@@ -1,0 +1,115 @@
+<div class="flex flex-auto items-center justify-center min-w-0 md:p-8 h-screen">
+
+    <div class="flex divide-x  divide-dashed divide-blue-200 md:w-full md:max-w-3xl sm:rounded-3xl shadow-2xl
+    overflow-hidden sm:bg-card   wrapper">
+        <div class="align-middle ">
+
+            <div class="text-center  mt-10">
+            <strong class="logo-prim mr-1 text-2xl">Tuberculosis</strong><strong class="logo-prim text-2xl"> Detection</strong>
+            </div>
+
+            <div class="w-72 flex justify-end ">
+                <img style="opacity: 0.5;" class="w-72" src="assets/images/cxr-bg.png">
+              </div>
+            <!-- @formatter:on -->
+        </div>
+
+        <div class="p-2 align-middle">
+            <div class="relative hidden md:flex flex-auto items-center
+         justify-center mt-8 mb-0  overflow-hidden">
+                <!-- Background - @formatter:off -->
+                <img class="h-30 w-30 justify-center " src="assets/images/logo.png">
+
+            </div>
+
+            <div class=" w-auto mb-12   px-4 px-10 py-2">
+                <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+                    <!-- Alert -->
+                    <eaii-alert
+                        *ngIf="showAlert"
+                        [@shake]="alert.type === 'error'"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="alert.type"
+                        class="mt-8 -mb-4">
+                        {{alert.message}}
+                    </eaii-alert>
+                    <!-- Sign in form -->
+                    <form
+                        #signInNgForm="ngForm"
+                        (ngSubmit)="signIn($event)"
+                        [formGroup]="signInForm"
+                        class="mt-8">
+
+                        <!-- Email field -->
+                        <mat-form-field class="w-full">
+
+                            <input
+                                class="rounded-lg"
+                                [formControlName]="'username'"
+                                id="email"
+                                matInput
+                                placeholder="User Name">
+                            <mat-icon
+                                *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:mail'"
+                                class="icon-size-5 text-primary" matSuffix></mat-icon>
+
+                            <mat-error *ngIf="signInForm.get('username').hasError('required')">
+                                Username is required
+                            </mat-error>
+
+                            <mat-error *ngIf="signInForm.get('username').hasError('username')">
+                                Please enter a valid user name
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Password field -->
+                        <mat-form-field class="w-full">
+                            <input
+                                #passwordField
+                                [formControlName]="'password'"
+                                id="password"
+                                matInput
+                                placeholder="Password"
+                                type="password">
+                            <button
+                                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                mat-icon-button
+                                matSuffix
+                                type="button">
+                                <mat-icon
+                                    *ngIf="passwordField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"
+                                    class="text-primary icon-size-5"></mat-icon>
+                                <mat-icon
+                                    *ngIf="passwordField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"
+                                    class="text-primary icon-size-5"></mat-icon>
+                            </button>
+                            <mat-error>
+                                Password is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Submit button -->
+                        <button
+                            type="submit"
+                            [color]="'primary'"
+                            [disabled]="signInForm.disabled"
+                            class="fuse-mat-button-large  w-full mt-6"
+                            mat-raised-button>
+                        <span *ngIf="!signInForm.disabled">
+                            Sign in
+                        </span>
+                            <mat-progress-spinner
+                                *ngIf="signInForm.disabled"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

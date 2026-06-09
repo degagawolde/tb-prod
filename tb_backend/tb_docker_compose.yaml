@@ -1,0 +1,22 @@
+version: '3'
+services:
+  tb-web:
+    image: tb-web-image:v1.5
+    container_name: tb-web
+    restart: always
+    ports:
+      - 5500:80
+    networks:
+      - tb-network
+
+  tb-api:
+    image: tb-api-image:v1.0
+    container_name: tb-api
+    restart: always
+    ports:
+      - 8800:8080
+    networks:
+      - tb-network
+  
+networks:
+  tb-network:
